@@ -34,23 +34,16 @@ class UpdateFragment : Fragment() {
         //val textView: TextView = root.findViewById(R.id.text_dashboard)
         val uploadButton: Button = root.findViewById(R.id.uploadButton)
 
-
         updateViewModel.text.observe(viewLifecycleOwner, Observer {
-            //textView.text = it
+            //fileText.text = it
         })
 
 
         uploadButton.setOnClickListener {
-            /*val fileintent = Intent(Intent.ACTION_GET_CONTENT)
-            fileintent.setType("text/plain")
-            fileintent.addCategory(Intent.CATEGORY_OPENABLE)
-            startActivityForResult(fileintent, FILE_SELECT_CODE)*/
-
             val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
             intent.addCategory(Intent.CATEGORY_OPENABLE)
             intent.type = "text/plain"
             startActivityForResult(intent, OPEN_REQUEST_CODE)
-
         }
 
         return root
@@ -65,22 +58,16 @@ class UpdateFragment : Fragment() {
         if(resultCode == Activity.RESULT_OK) {
             if (requestCode == CREATE_REQUEST_CODE) {
                 if (resultData != null) {
+                    //updateViewModel.text
                     //fileText.text = ""
                 }
-           /* } else if (requestCode == SAVE_REQUEST_CODE) {
-                resultData?.let {
-                    currentUri = it.data
-                    writeFileContent(currentUri)
-                }*/
             } else if (requestCode == OPEN_REQUEST_CODE) {
-
                 resultData?.let {
                     currentUri = it.data
 
                     try {
                         val content = readFileContent(currentUri)
                         saveFile(content)
-                        val a = ""
                         //fileText.text = content
                     } catch (e: IOException) {
                         // Handle error here
@@ -92,23 +79,10 @@ class UpdateFragment : Fragment() {
     }
 
 
-    fun newFile(view: View) {
-        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT)
-
-        intent.addCategory(Intent.CATEGORY_OPENABLE)
-        intent.type = "text/plain"
-        intent.putExtra(Intent.EXTRA_TITLE, "newfile.txt")
-
-        startActivityForResult(intent, CREATE_REQUEST_CODE)
-    }
-
-
     private fun readFileContent(uri: Uri?): String {
         val inputStream = requireActivity().contentResolver.openInputStream(uri!!)
         val reader = BufferedReader(InputStreamReader(inputStream))
         val stringBuilder = StringBuilder()
-
-
         var currentline = reader.readLine()
 
         while (currentline != null) {
