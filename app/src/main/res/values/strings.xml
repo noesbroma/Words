@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">My Applicationdcsdcds</string>
     <string name="title_home">Home</string>
     <string name="title_update">Update</string>
     <string name="title_notifications">Notifications</string>
+    <string name="no_data">Todavía no has cargado ningún archivo...</string>
 </resources>

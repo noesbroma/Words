@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.words.R
+import com.example.words.ui.home.HomeFragment
 import java.io.*
 
 
@@ -27,7 +28,27 @@ class UpdateFragment : Fragment() {
     private val SAVE_REQUEST_CODE = 42
     val FILE = "file.ser"
 
+
+    companion object {
+        fun newInstance(): UpdateFragment {
+            val fragment = UpdateFragment()
+
+            return fragment
+        }
+    }
+
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+
+    /*override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         updateViewModel = ViewModelProvider(this).get(UpdateViewModel::class.java)
 
         val root = inflater.inflate(R.layout.fragment_update, container, false)
@@ -47,7 +68,7 @@ class UpdateFragment : Fragment() {
         }
 
         return root
-    }
+    }*/
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
         super.onActivityResult(requestCode, resultCode, resultData)
