@@ -6,14 +6,44 @@
     android:layout_height="match_parent"
     tools:context=".ui.update.UpdateFragment">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/order"
+    <TextView
+        android:id="@+id/orderTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:text="Ordenar alfabeticamente" />
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Ordenar por:"
+        android:textSize="20sp"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/orderByPosition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/orderByWord"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderTitle"
+        android:text="Posición" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/orderByWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@+id/orderByCount"
+        app:layout_constraintStart_toEndOf="@+id/orderByPosition"
+        app:layout_constraintTop_toBottomOf="@+id/orderTitle"
+        android:text="Alfabeticamente" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/orderByCount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/orderByWord"
+        app:layout_constraintTop_toBottomOf="@+id/orderTitle"
+        android:text="Apariciones" />
 
     <TextView
         android:id="@+id/wordsCount"
@@ -21,7 +51,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/order"
+        app:layout_constraintTop_toBottomOf="@+id/orderByPosition"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

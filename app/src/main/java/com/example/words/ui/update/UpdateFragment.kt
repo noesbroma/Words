@@ -1,31 +1,15 @@
 package com.example.words.ui.update
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.words.R
-import com.example.words.data.InfoWord
 import com.example.words.data.InfoWordRecyclerAdapter
-import com.example.words.ui.WordsApplication
-import com.example.words.ui.home.HomeFragment
-import com.example.words.ui.home.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.*
-import java.util.*
-import java.util.concurrent.ConcurrentHashMap
 
 
 class UpdateFragment : Fragment() {
@@ -67,15 +51,25 @@ class UpdateFragment : Fragment() {
 
 
     fun setListeners() {
-        order.setOnClickListener{
-            viewModel.order()
+        orderByCount.setOnClickListener{
+            viewModel.order(1)
+            infoWordsRecycler.adapter?.notifyDataSetChanged()
+        }
+
+        orderByPosition.setOnClickListener{
+            viewModel.order(2)
+            infoWordsRecycler.adapter?.notifyDataSetChanged()
+        }
+
+        orderByWord.setOnClickListener{
+            viewModel.order(3)
             infoWordsRecycler.adapter?.notifyDataSetChanged()
         }
     }
 
 
     private fun observeViewModel() {
-        viewModel.onLoadInforWordsEvent.observe(viewLifecycleOwner, androidx.lifecycle.Observer { infoWords ->
+        viewModel.onLoadInfoWordsEvent.observe(viewLifecycleOwner, androidx.lifecycle.Observer { infoWords ->
             linearLayoutManager = LinearLayoutManager(context)
             infoWordsRecycler.layoutManager = linearLayoutManager
             infoWordsRecycler.hasFixedSize()

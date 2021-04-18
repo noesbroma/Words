@@ -6,17 +6,37 @@ import com.example.words.ui.WordsApplication
 
 class UpdateViewModel : ViewModel() {
     var infoWordList = listOf<Pair<String, Int>>()
-    val onLoadInforWordsEvent = MutableLiveData<List<Pair<String, Int>>>()
+    val onLoadInfoWordsEvent = MutableLiveData<List<Pair<String, Int>>>()
 
     fun setInfoWordsList(infoList: List<Pair<String, Int>>) {
         infoWordList = infoList
-        onLoadInforWordsEvent.value = infoList
+        onLoadInfoWordsEvent.value = infoList
     }
 
 
-    fun order() {
-        infoWordList = infoWordList.sortedBy { it.second }
-        onLoadInforWordsEvent.value = infoWordList
+    fun order(type: Int) {
+        when (type) {
+            1 -> {
+                //count
+                getInfoWordList()
+                infoWordList = infoWordList.sortedBy { it.second }
+            }
+
+            2 -> {
+                //position
+                getInfoWordList()
+            }
+
+            3 -> {
+                //word
+                getInfoWordList()
+                infoWordList = infoWordList.sortedBy { it.first }
+            }
+
+            else -> getInfoWordList()
+        }
+
+        onLoadInfoWordsEvent.value = infoWordList
     }
 
 
