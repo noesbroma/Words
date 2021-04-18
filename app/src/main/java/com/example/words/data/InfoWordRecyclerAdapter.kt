@@ -15,12 +15,19 @@ class InfoWordRecyclerAdapter(private val infoWordsList: List<Pair<String, Int>>
         return InfoWordHolder(LayoutInflater.from(parent.context).inflate(R.layout.info_word_row, parent, false))
     }
 
+
     override fun getItemCount(): Int {
         return infoWordsList.size
     }
 
+
     override fun onBindViewHolder(holder: InfoWordHolder, position: Int) {
         holder.bindItems(infoWordsList[position])
+    }
+
+
+    fun refresh() {
+        notifyDataSetChanged()
     }
 
 
@@ -37,5 +44,4 @@ class InfoWordRecyclerAdapter(private val infoWordsList: List<Pair<String, Int>>
             })*/
         }
     }
-
 }

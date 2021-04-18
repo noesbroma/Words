@@ -2,6 +2,7 @@ package com.example.words.ui
 
 import android.app.Application
 import com.example.words.di.homeModule
+import com.example.words.di.updateModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -18,7 +19,8 @@ class WordsApplication : Application() {
             androidContext(this@WordsApplication)
             modules(
                 listOf(
-                    homeModule
+                    homeModule,
+                    updateModule
                 )
             )
         }
