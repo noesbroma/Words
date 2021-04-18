@@ -10,6 +10,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.words.ui.home.HomeFragment
+import com.example.words.ui.update.UpdateFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -32,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
 
     fun setListeners() {
-        nav_view.setOnNavigationItemReselectedListener {
+        nav_view.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.navigation_home -> {
                     /*toolbar.search.visibility = View.VISIBLE
@@ -43,10 +44,12 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_update -> {
-                    val fragment = HomeFragment.newInstance()
+                    val fragment = UpdateFragment.newInstance()
                     openFragment(fragment)
                     true
                 }
+
+                else -> false
             }
         }
     }

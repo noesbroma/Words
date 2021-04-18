@@ -14,20 +14,21 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.words.R
+import com.example.words.data.InfoWord
+import com.example.words.data.InfoWordRecyclerAdapter
+import com.example.words.ui.WordsApplication
 import com.example.words.ui.home.HomeFragment
+import kotlinx.android.synthetic.main.fragment_update.*
 import java.io.*
+import java.util.*
+import java.util.concurrent.ConcurrentHashMap
 
 
 class UpdateFragment : Fragment() {
-
-    private lateinit var updateViewModel: UpdateViewModel
-    private var FILE_SELECT_CODE: Int = 1
-    private val CREATE_REQUEST_CODE = 40
-    private val OPEN_REQUEST_CODE = 41
-    private val SAVE_REQUEST_CODE = 42
     val FILE = "file.ser"
-
+    private lateinit var linearLayoutManager: LinearLayoutManager
 
     companion object {
         fun newInstance(): UpdateFragment {
@@ -39,112 +40,49 @@ class UpdateFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        return inflater.inflate(R.layout.fragment_update, container, false)
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        linearLayoutManager = LinearLayoutManager(activity?.baseContext)
+        infoWordsRecycler.layoutManager = linearLayoutManager
+
+        infoWordsRecycler.adapter = InfoWordRecyclerAdapter(getInfoWordList())
+
+        setUI()
     }
 
 
-    /*override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        updateViewModel = ViewModelProvider(this).get(UpdateViewModel::class.java)
+    fun setUI() {
+        //wordsList.text = WordsApplication.fileText
+        //var wordsList = getList()
+        var infoWordList = getInfoWordList()
 
-        val root = inflater.inflate(R.layout.fragment_update, container, false)
-        //val textView: TextView = root.findViewById(R.id.text_dashboard)
-        val uploadButton: Button = root.findViewById(R.id.uploadButton)
-
-        updateViewModel.text.observe(viewLifecycleOwner, Observer {
-            //fileText.text = it
-        })
+        wordsCount.text = String.format("%s %s", "Palabras totales: ", infoWordList.size.toString())
+    }
 
 
-        uploadButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "text/plain"
-            startActivityForResult(intent, OPEN_REQUEST_CODE)
-        }
+    /*fun getList(): List<String> {
+        var wordsText: String = WordsApplication.fileText
+        wordsText = wordsText.replace("\\s+".toRegex(), " ")
+        var list = wordsText.split(" ")
+        list = list.distinct()
 
-        return root
+        return list
     }*/
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, resultData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, resultData)
+    fun getInfoWordList(): List<Pair<String, Int>> {
+        var wordsText: String = WordsApplication.fileText
+        wordsText = wordsText.replace("\\s+".toRegex(), " ")
+        var list = wordsText.split(" ")
 
-        //val fileText: TextView = root.findViewById(R.id.fileText)
-        var currentUri: Uri? = null
+        //var lista = list.groupingBy { it }.eachCount().filter { it.value > 1 }
+        var infoWordList = list.groupBy {it}.mapValues{it.value.count ()}
+        //val pairKeyValueList = infoWordList.toList()
 
-        if(resultCode == Activity.RESULT_OK) {
-            if (requestCode == CREATE_REQUEST_CODE) {
-                if (resultData != null) {
-                    //updateViewModel.text
-                    //fileText.text = ""
-                }
-            } else if (requestCode == OPEN_REQUEST_CODE) {
-                resultData?.let {
-                    currentUri = it.data
-
-                    try {
-                        val content = readFileContent(currentUri)
-                        saveFile(content)
-                        //fileText.text = content
-                    } catch (e: IOException) {
-                        // Handle error here
-                    }
-
-                }
-            }
-        }
+        return infoWordList.toList()
     }
-
-
-    private fun readFileContent(uri: Uri?): String {
-        val inputStream = requireActivity().contentResolver.openInputStream(uri!!)
-        val reader = BufferedReader(InputStreamReader(inputStream))
-        val stringBuilder = StringBuilder()
-        var currentline = reader.readLine()
-
-        while (currentline != null) {
-            stringBuilder.append(currentline + "\n")
-            currentline = reader.readLine()
-        }
-
-        inputStream?.close()
-
-        return stringBuilder.toString()
-    }
-
-    private fun saveFile(content: String) {
-        val fos: FileOutputStream
-
-        try {
-            fos = context?.openFileOutput(FILE, Context.MODE_PRIVATE)!!
-            val out = ObjectOutputStream(fos)
-            out.writeObject(content)
-            fos.close()
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-
-    }
-
-   /* fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == PICKFILE_RESULT_CODE && resultCode == Activity.RESULT_OK) {
-            val content_describer = data.data
-            val src = content_describer!!.path
-            source = File(src)
-            Log.d("src is ", source.toString())
-            val filename = content_describer.lastPathSegment
-            text.setText(filename)
-            Log.d("FileName is ", filename)
-            destination = File(Environment.getExternalStorageDirectory().getAbsolutePath().toString() + "/Test/TestTest/" + filename)
-            Log.d("Destination is ", destination.toString())
-            SetToFolder.setEnabled(true)
-        }
-    }*/
 }

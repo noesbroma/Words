@@ -1,4 +1,4 @@
-package com.example.words.data
+package com.example.words.di
 
 import com.example.words.ui.home.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel

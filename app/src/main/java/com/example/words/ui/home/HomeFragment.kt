@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.example.words.R
+import com.example.words.ui.WordsApplication
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import www.sanju.motiontoast.MotionToast
@@ -28,7 +29,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModel()
     private val CREATE_REQUEST_CODE = 40
     private val OPEN_REQUEST_CODE = 41
-    val FILE = "file.ser"
+    //val FILE = "file.ser"
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -110,12 +111,13 @@ class HomeFragment : Fragment() {
         val fos: FileOutputStream
 
         try {
-            fos = context?.openFileOutput(FILE, Context.MODE_PRIVATE)!!
+            fos = context?.openFileOutput(WordsApplication.FILE, Context.MODE_PRIVATE)!!
             val out = ObjectOutputStream(fos)
             out.writeObject(content)
             fos.close()
 
             fileText.text = content
+            WordsApplication.fileText = content
 
             this.activity?.let {
                 MotionToast.darkToast(

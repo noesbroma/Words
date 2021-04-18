@@ -1,12 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">My Applicationdcsdcds</string>
     <string name="title_home">Home</string>
     <string name="title_update">Update</string>
     <string name="title_notifications">Notifications</string>
-    <string name="no_data">Todavía no has cargado ningún archivo...</string>
+    <string name="no_data">No loaded data...</string>
     <plurals name="repetitions">
-        <item quantity="zero">0 repeticiones</item>
-        <item quantity="one">1 repetición</item>
-        <item quantity="other">%1$d repeticiones</item>
+        <item quantity="zero">0 repetitions</item>
+        <item quantity="one">1 repetition</item>
+        <item quantity="other">%1$d repetitions</item>
     </plurals>
 </resources>

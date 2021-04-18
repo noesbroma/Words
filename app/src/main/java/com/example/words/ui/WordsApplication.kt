@@ -1,7 +1,7 @@
 package com.example.words.ui
 
 import android.app.Application
-import com.example.words.data.homeModule
+import com.example.words.di.homeModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -22,5 +22,11 @@ class WordsApplication : Application() {
                 )
             )
         }
+    }
+
+
+    companion object {
+        val FILE = "file.ser"
+        var fileText = ""
     }
 }
