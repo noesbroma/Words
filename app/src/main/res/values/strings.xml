@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">My Applicationdcsdcds</string>
     <string name="title_home">Home</string>
-    <string name="title_update">Update</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_management">Gestión</string>
     <string name="no_data">Todavía no has cargado ningún archivo...</string>
     <plurals name="repetitions">
         <item quantity="zero">0 repeticiones</item>

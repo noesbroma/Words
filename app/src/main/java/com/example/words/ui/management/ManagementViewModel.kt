@@ -1,10 +1,10 @@
-package com.example.words.ui.update
+package com.example.words.ui.management
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.words.ui.WordsApplication
 
-class UpdateViewModel : ViewModel() {
+class ManagementViewModel : ViewModel() {
     var infoWordList = listOf<Pair<String, Int>>()
     val onLoadInfoWordsEvent = MutableLiveData<List<Pair<String, Int>>>()
 

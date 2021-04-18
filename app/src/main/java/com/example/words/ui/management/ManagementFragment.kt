@@ -1,4 +1,4 @@
-package com.example.words.ui.update
+package com.example.words.ui.management
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,18 +8,18 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.words.R
 import com.example.words.data.InfoWordRecyclerAdapter
-import kotlinx.android.synthetic.main.fragment_update.*
+import kotlinx.android.synthetic.main.fragment_management.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class UpdateFragment : Fragment() {
+class ManagementFragment : Fragment() {
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private val viewModel: UpdateViewModel by viewModel()
+    private val viewModel: ManagementViewModel by viewModel()
     private var infoWordsList = listOf<Pair<String, Int>>()
 
     companion object {
-        fun newInstance(): UpdateFragment {
-            val fragment = UpdateFragment()
+        fun newInstance(): ManagementFragment {
+            val fragment = ManagementFragment()
 
             return fragment
         }
@@ -27,7 +27,7 @@ class UpdateFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_update, container, false)
+        return inflater.inflate(R.layout.fragment_management, container, false)
     }
 
 

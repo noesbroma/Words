@@ -69,8 +69,6 @@ class HomeFragment : Fragment() {
         if(resultCode == Activity.RESULT_OK) {
             if (requestCode == CREATE_REQUEST_CODE) {
                 if (resultData != null) {
-                    //updateViewModel.text
-                    //fileText.text = ""
                 }
             } else if (requestCode == OPEN_REQUEST_CODE) {
                 resultData?.let {
@@ -79,7 +77,6 @@ class HomeFragment : Fragment() {
                     try {
                         val content = readFileContent(currentUri)
                         saveFile(content)
-                        //fileText.text = content
                     } catch (e: IOException) {
                         // Handle error here
                     }
