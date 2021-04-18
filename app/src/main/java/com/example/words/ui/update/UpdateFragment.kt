@@ -29,7 +29,6 @@ import java.util.concurrent.ConcurrentHashMap
 
 
 class UpdateFragment : Fragment() {
-    val FILE = "file.ser"
     private lateinit var linearLayoutManager: LinearLayoutManager
     private val viewModel: UpdateViewModel by viewModel()
     private var infoWordsList = listOf<Pair<String, Int>>()
@@ -51,11 +50,8 @@ class UpdateFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*linearLayoutManager = LinearLayoutManager(activity?.baseContext)
-        infoWordsRecycler.layoutManager = linearLayoutManager
-        infoWordsRecycler.hasFixedSize()*/
-        viewModel.setInfoWordsList(getInfoWordList())
-        /*viewModel.setInfoWordsList(viewModel.infoWordList)*/
+        viewModel.getInfoWordList()
+        viewModel.setInfoWordsList(viewModel.infoWordList)
 
         infoWordsRecycler.adapter = InfoWordRecyclerAdapter(viewModel.infoWordList)
 
@@ -66,11 +62,7 @@ class UpdateFragment : Fragment() {
 
 
     fun setUI() {
-        //wordsList.text = WordsApplication.fileText
-        //var wordsList = getList()
-        var infoWordList = getInfoWordList()
-
-        wordsCount.text = String.format("%s %s", "Palabras totales: ", infoWordList.size.toString())
+        wordsCount.text = String.format("%s %s", "Palabras totales: ", viewModel.infoWordList.size.toString())
     }
 
 
@@ -95,15 +87,5 @@ class UpdateFragment : Fragment() {
                 infoWordsRecycler.adapter =  InfoWordRecyclerAdapter(infoWords)
             }
         })
-    }
-
-
-    fun getInfoWordList(): List<Pair<String, Int>> {
-        var wordsText: String = WordsApplication.fileText
-        wordsText = wordsText.replace("\\s+".toRegex(), " ")
-        var list = wordsText.split(" ")
-        var infoWordList = list.groupBy {it}.mapValues{it.value.count ()}
-
-        return infoWordList.toList()
     }
 }

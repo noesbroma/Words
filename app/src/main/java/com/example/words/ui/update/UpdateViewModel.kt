@@ -1,6 +1,5 @@
 package com.example.words.ui.update
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.words.ui.WordsApplication
@@ -21,11 +20,11 @@ class UpdateViewModel : ViewModel() {
     }
 
 
-    /*fun getInfoWordList() {
+    fun getInfoWordList() {
         var wordsText: String = WordsApplication.fileText
         wordsText = wordsText.replace("\\s+".toRegex(), " ")
         var list = wordsText.split(" ")
 
         infoWordList = list.groupBy {it}.mapValues{it.value.count ()}.toList()
-    }*/
+    }
 }
