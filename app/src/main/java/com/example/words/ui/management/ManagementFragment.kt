@@ -81,7 +81,7 @@ class ManagementFragment : Fragment() {
             val selectedItem = parent.getItemAtPosition(position).toString()
             MotionToast.darkToast(
                 context as Activity,
-                "Elemento seleccionado",
+                    this.context?.resources?.getString(R.string.selected_item),
                 "$selectedItem",
                 MotionToast.TOAST_SUCCESS,
                 MotionToast.GRAVITY_CENTER,

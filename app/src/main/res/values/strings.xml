@@ -14,4 +14,5 @@
     <string name="sort_by_position">Posición</string>
     <string name="sort_by_text">Texto</string>
     <string name="sort_by_appearances">Apariciones</string>
+    <string name="selected_item">Elemento seleccionado</string>
 </resources>
