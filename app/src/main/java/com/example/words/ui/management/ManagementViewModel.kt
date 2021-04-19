@@ -8,6 +8,7 @@ class ManagementViewModel : ViewModel() {
     var infoWordList = listOf<Pair<String, Int>>()
     val onLoadInfoWordsEvent = MutableLiveData<List<Pair<String, Int>>>()
 
+
     fun setInfoWordsList(infoList: List<Pair<String, Int>>) {
         infoWordList = infoList
         onLoadInfoWordsEvent.value = infoList
@@ -41,23 +42,26 @@ class ManagementViewModel : ViewModel() {
 
 
     fun getInfoWordList() {
-        var wordsText: String = WordsApplication.fileText
-        val re = Regex("[^A-Za-z0-9 ]")
-        wordsText = re.replace(wordsText, "").toLowerCase() // works
-        var list = wordsText.split(" ")
-        (list as ArrayList).removeIf {it == ""}
+        var list = getDataFile()
 
         infoWordList = list.groupBy {it}.mapValues{it.value.count ()}.toList()
     }
 
 
     fun getWordsList(): List<String> {
+        var list = getDataFile()
+
+        return list.distinct()
+    }
+
+
+    fun getDataFile(): List<String> {
         var wordsText: String = WordsApplication.fileText
         val re = Regex("[^A-Za-z0-9 ]")
         wordsText = re.replace(wordsText, "").toLowerCase() // works
         var list = wordsText.split(" ")
         (list as ArrayList).removeIf {it == ""}
 
-        return list.distinct()
+        return list
     }
 }

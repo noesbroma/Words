@@ -1,20 +1,34 @@
 package com.example.words.ui.home
 
-import androidx.lifecycle.LiveData
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.words.ui.WordsApplication
+import java.io.*
 
 class HomeViewModel : ViewModel() {
+    val onGetContentFileEvent = MutableLiveData<Boolean>()
+    val onGetContentFileError = MutableLiveData<Boolean>()
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
-    }
 
-    var text: LiveData<String> = _text
+    fun saveFile(content: String, context: Context) {
+        val fos: FileOutputStream
 
-    val txt = MutableLiveData<String>()
+        try {
+            fos = context?.openFileOutput(WordsApplication.FILE, Context.MODE_PRIVATE)!!
+            val out = ObjectOutputStream(fos)
+            out.writeObject(content)
+            fos.close()
 
-    fun setTxt(t: String) {
-        txt.value = t
+            WordsApplication.fileText = content
+
+            onGetContentFileEvent.value = true
+
+        } catch (e: FileNotFoundException) {
+            onGetContentFileError.value = true
+
+        } catch (e: IOException) {
+            onGetContentFileError.value = true
+        }
     }
 }

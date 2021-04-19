@@ -44,6 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="24dp"
-        android:text="Upload File" />
+        android:text="@string/upload_file"
+        android:textAllCaps="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

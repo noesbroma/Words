@@ -10,9 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.words.R
+import com.example.words.data.InfoWordRecyclerAdapter
 import com.example.words.ui.WordsApplication
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_management.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import www.sanju.motiontoast.MotionToast
 import java.io.*
@@ -29,7 +32,7 @@ class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModel()
     private val CREATE_REQUEST_CODE = 40
     private val OPEN_REQUEST_CODE = 41
-    //val FILE = "file.ser"
+    private var content = ""
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -39,15 +42,14 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.setTxt("Esta es la home")
 
         setUI()
         setListeners()
+        observeViewModel()
     }
 
 
     fun setUI() {
-        //text_home.text = viewModel.txt.value
     }
 
 
@@ -58,6 +60,37 @@ class HomeFragment : Fragment() {
             intent.type = "text/plain"
             startActivityForResult(intent, OPEN_REQUEST_CODE)
         }
+    }
+
+
+    private fun observeViewModel() {
+        viewModel.onGetContentFileEvent.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            fileText.text = content
+
+            this.activity?.let {
+                MotionToast.darkToast(
+                    this.context as Activity,
+                    "Upload success 😍",
+                    "Congrats!!",
+                    MotionToast.TOAST_SUCCESS,
+                    MotionToast.GRAVITY_CENTER,
+                    MotionToast.LONG_DURATION,
+                    this.context?.let { ResourcesCompat.getFont(it,R.font.helvetica_regular) })
+            }
+        })
+
+        viewModel.onGetContentFileError.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            this.activity?.let {
+                MotionToast.darkToast(
+                    it,
+                    "Upload error 😍",
+                    "Sorry!!",
+                    MotionToast.TOAST_ERROR,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    this.context?.let { ResourcesCompat.getFont(it, R.font.helvetica_regular) })
+            }
+        })
     }
 
 
@@ -75,8 +108,8 @@ class HomeFragment : Fragment() {
                     currentUri = it.data
 
                     try {
-                        val content = readFileContent(currentUri)
-                        saveFile(content)
+                        content = readFileContent(currentUri)
+                        viewModel.saveFile(content, activity?.baseContext!!)
                     } catch (e: IOException) {
                         // Handle error here
                     }
@@ -118,11 +151,11 @@ class HomeFragment : Fragment() {
 
             this.activity?.let {
                 MotionToast.darkToast(
-                    it,
+                    this.context as Activity,
                     "Upload success 😍",
                     "Congrats!!",
                     MotionToast.TOAST_SUCCESS,
-                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.GRAVITY_CENTER,
                     MotionToast.LONG_DURATION,
                     this.context?.let { ResourcesCompat.getFont(it,R.font.helvetica_regular) })
             }

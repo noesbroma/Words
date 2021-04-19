@@ -8,4 +8,10 @@
         <item quantity="one">1 repetición</item>
         <item quantity="other">%1$d repeticiones</item>
     </plurals>
+    <string name="upload_file">Sube un archivo</string>
+    <string name="search">Busca...</string>
+    <string name="sort_by">Ordenar por:</string>
+    <string name="sort_by_position">Posición</string>
+    <string name="sort_by_text">Texto</string>
+    <string name="sort_by_appearances">Apariciones</string>
 </resources>
